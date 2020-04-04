@@ -17,8 +17,7 @@ def regions_builder():
     nomi_regioni = [x.lower().replace('p.a. ', '').replace(' ', '_').replace('\'', '_') for x in nomi_regioni]
     association = dict(zip(nomi_regioni, codici_regioni))
     del association['trento']
-    association['bolzano_trento'] = association['bolzano']
-    del association['bolzano']
+    association['bolzano_trento'] = association.pop('bolzano')
     return association
 
 
@@ -102,6 +101,7 @@ def regional(regione_selezionata):
         tamponi_reg = tmp_tamponi
         giorni_reg = giorni_reg[1::2]
 
+    np.seterr(divide='ignore', invalid='ignore')
     pos_test_ratio = np.divide(positivi_reg, tamponi_reg)
     pos_test_ratio = np.abs(np.nan_to_num(pos_test_ratio, posinf=0.))
 
