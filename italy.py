@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -27,13 +27,13 @@ giorni = temp
 
 fig, axes = plt.subplots(nrows=3, sharex=True)
 axes[0].plot(positivi_ita)
-axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: " + str(positivi_ita[-1]))
+axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_ita[-1]))
 axes[0].grid()
-axes[1].plot(giorni, np.divide(positivi_ita,tamponi_ita)*100)
-axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: "+ str(np.around((np.divide(positivi_ita[-1],tamponi_ita[-1])*100), decimals = 2)))
+axes[1].plot(giorni, np.divide(positivi_ita, tamponi_ita)*100)
+axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}%".format((positivi_ita[-1]/tamponi_ita[-1])*100))
 axes[1].grid()
 axes[2].plot(dimessi_ita)
-axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI: " + str(dimessi_ita[-1]))
+axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI: {}".format(dimessi_ita[-1]))
 axes[2].grid()
 plt.xticks(rotation=45)
 plt.show()
