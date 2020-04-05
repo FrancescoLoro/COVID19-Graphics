@@ -119,8 +119,8 @@ def regional(regione_selezionata):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     region_choice = regions_builder()
-    parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), help='Region to be shown',
-                        metavar='REGION')
+    parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), metavar='REGION',
+                        help='Region to be shown. Valid options are: %(choices)s')
     args = parser.parse_args()
     if args.region is None:
         national()
