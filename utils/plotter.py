@@ -44,13 +44,15 @@ def national():
         temp.append(giorni[i][6:10])
     giorni = temp
 
+    pos_test_ratio = np.divide(positivi_ita, tamponi_ita)
+
     fig, axes = plt.subplots(nrows=3, sharex=True)
     axes[0].plot(positivi_ita)
     axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_ita[-1]))
     axes[0].grid()
     axes[1].plot(giorni, np.divide(positivi_ita, tamponi_ita) * 100)
-    axes[1].set_title(
-        "ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}%".format((positivi_ita[-1] / tamponi_ita[-1]) * 100))
+    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
+                      format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
     axes[2].plot(dimessi_ita)
     axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI: {}".format(dimessi_ita[-1]))
@@ -110,7 +112,8 @@ def regional(regione_selezionata):
     axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_reg[-1]))
     axes[0].grid()
     axes[1].plot(giorni_reg, pos_test_ratio)
-    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}%".format(pos_test_ratio[-1] * 100))
+    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
+                      format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
     plt.xticks(rotation=45)
     plt.show()
