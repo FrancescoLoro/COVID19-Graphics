@@ -45,12 +45,15 @@ def national():
     giorni = temp
 
     pos_test_ratio = np.divide(positivi_ita, tamponi_ita)
+    peak_ratio = np.max(pos_test_ratio)
+    peak_ratio = peak_ratio if peak_ratio < 1 else 1  # used to compute y span
 
-    fig, axes = plt.subplots(nrows=3, sharex=True)
+    fig, axes = plt.subplots(nrows=3, sharex='all')
     axes[0].plot(positivi_ita)
     axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_ita[-1]))
     axes[0].grid()
-    axes[1].plot(giorni, np.divide(positivi_ita, tamponi_ita) * 100)
+    axes[1].set_ylim(0, peak_ratio * 100)
+    axes[1].plot(giorni, pos_test_ratio * 100)
     axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
                       format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
@@ -106,13 +109,16 @@ def regional(regione_selezionata, nome_regione):
 
     np.seterr(divide='ignore', invalid='ignore')
     pos_test_ratio = np.divide(positivi_reg, tamponi_reg)
-    pos_test_ratio = np.abs(np.nan_to_num(pos_test_ratio, posinf=0.))
+    pos_test_ratio = np.abs(np.nan_to_num(pos_test_ratio, posinf=0.0, neginf=0.0))
+    peak_ratio = np.max(pos_test_ratio)
+    peak_ratio = peak_ratio if peak_ratio < 1 else 1  # used to compute y span
 
-    fig, axes = plt.subplots(nrows=2, sharex=True)
+    fig, axes = plt.subplots(nrows=2, sharex='all')
     axes[0].plot(np.abs(positivi_reg))
     axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_reg[-1]))
     axes[0].grid()
-    axes[1].plot(giorni_reg, pos_test_ratio)
+    axes[1].set_ylim(0, peak_ratio * 100)
+    axes[1].plot(giorni_reg, pos_test_ratio * 100)
     axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
                       format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
