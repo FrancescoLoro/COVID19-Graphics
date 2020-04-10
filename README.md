@@ -1,4 +1,4 @@
-#COVID19-Graphics
+# COVID19-Graphics
 
 Simple script to draw a diagram of most notable values about COVID-19 spread in Italy.
 
