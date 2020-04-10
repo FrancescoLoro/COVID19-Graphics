@@ -57,11 +57,12 @@ def national():
     axes[2].plot(dimessi_ita)
     axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI: {}".format(dimessi_ita[-1]))
     axes[2].grid()
+    fig.canvas.set_window_title("Dati Nazionali")
     plt.xticks(rotation=45)
     plt.show()
 
 
-def regional(regione_selezionata):
+def regional(regione_selezionata, nome_regione):
     plt.show()
     data = pd.read_csv("COVID-19/dati-regioni/dpc-covid19-ita-regioni.csv")
     codice_regione = data["codice_regione"]
@@ -115,6 +116,7 @@ def regional(regione_selezionata):
     axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
                       format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
+    fig.canvas.set_window_title("Dati regione " + str(nome_regione))
     plt.xticks(rotation=45)
     plt.show()
 
@@ -128,4 +130,4 @@ if __name__ == '__main__':
     if args.region is None:
         national()
     else:
-        regional(region_choice[args.region])
+        regional(region_choice[args.region], args.region)
