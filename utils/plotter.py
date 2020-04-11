@@ -128,7 +128,9 @@ def regional(regione_selezionata, nome_regione):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog='main.sh', description='A tool to show the CODIV19 infected, healed, and '
+                                                                 'positive people relative to Italy and its regions '
+                                                                 'according to official Github data')
     region_choice = regions_builder()
     parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), metavar='REGION',
                         help='Region to be shown. Valid options are: %(choices)s')
