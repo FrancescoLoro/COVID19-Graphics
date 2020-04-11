@@ -5,12 +5,12 @@ Simple script to draw a diagram of most notable values about COVID-19 spread in 
 #### USAGE: 
 - Clone the repository
 
-- Launch `main.sh` to get information about whole Italy 
+- Launch `python3 main.py` to get information about whole Italy 
 
-- Launch `main.sh -r RegionName` to get information about particular region
+- Launch `python3 main.py -r RegionName` to get information about particular region
 
 ```
-usage: main.sh [-h] [-r REGION]
+usage: python3 main.py [-h] [-r REGION]
 
 optional arguments:
   -h, --help            show this help message and exit

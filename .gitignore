@@ -6,3 +6,6 @@ COVID-19/
 
 # virtualenv
 covid_venv/
+
+# pycache
+__pycache__

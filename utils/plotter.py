@@ -2,23 +2,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import argparse
-
-
-def regions_builder():
-    """
-
-    :return: dictionary of region -> code
-    :rtype: dict
-    """
-    data = pd.read_csv("COVID-19/dati-regioni/dpc-covid19-ita-regioni-latest.csv")
-    codici_regioni = np.array(data['codice_regione'])
-    nomi_regioni = np.array(data['denominazione_regione'])
-    nomi_regioni = [x.lower().replace('p.a. ', '').replace(' ', '_').replace('\'', '_') for x in nomi_regioni]
-    association = dict(zip(nomi_regioni, codici_regioni))
-    del association['trento']
-    association['bolzano_trento'] = association.pop('bolzano')
-    return association
 
 
 def national():
@@ -125,17 +108,3 @@ def regional(regione_selezionata, nome_regione):
     fig.canvas.set_window_title("Dati regione " + str(nome_regione))
     plt.xticks(rotation=45)
     plt.show()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='main.sh', description='A tool to show the CODIV19 infected, healed, and '
-                                                                 'positive people relative to Italy and its regions '
-                                                                 'according to official Github data')
-    region_choice = regions_builder()
-    parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), metavar='REGION',
-                        help='Region to be shown. Valid options are: %(choices)s')
-    args = parser.parse_args()
-    if args.region is None:
-        national()
-    else:
-        regional(region_choice[args.region], args.region)
