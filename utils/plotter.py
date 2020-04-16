@@ -7,7 +7,7 @@ import pandas as pd
 def national():
     data = pd.read_csv("COVID-19/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
     tamponi_ita = np.array(data["tamponi"])
-    positivi_ita = np.array(data["variazione_totale_positivi"])
+    positivi_ita = np.array(data["nuovi_positivi"])
     dimessi_ita = np.array(data["dimessi_guariti"])
     giorni = np.array(data["data"])
     print(dimessi_ita)
@@ -58,7 +58,7 @@ def regional(regione_selezionata, nome_regione):
 
     for i in np.where(codice_regione == regione_selezionata):
         tamponi_reg.append(data["tamponi"][i])
-        positivi_reg.append(data["variazione_totale_positivi"][i])
+        positivi_reg.append(data["nuovi_positivi"][i])
         giorni_reg.append(data["data"][i])
 
     # REMOVE USELESS INDEXES
@@ -82,9 +82,9 @@ def regional(regione_selezionata, nome_regione):
     if regione_selezionata == 4:
         tmp_pos = []
         tmp_tamponi = []
-        for idx in range(0, (len(positivi_reg)) // 2):
+        for idx in range(0, len(positivi_reg) // 2):
             tmp_pos.append(positivi_reg[idx] + positivi_reg[idx + 1])
-        for idx in range(0, (len(tamponi_reg)) // 2):
+        for idx in range(0, len(tamponi_reg) // 2):
             tmp_tamponi.append(tamponi_reg[idx] + tamponi_reg[idx + 1])
         positivi_reg = tmp_pos
         tamponi_reg = tmp_tamponi
@@ -92,12 +92,12 @@ def regional(regione_selezionata, nome_regione):
 
     np.seterr(divide='ignore', invalid='ignore')
     pos_test_ratio = np.divide(positivi_reg, tamponi_reg)
-    pos_test_ratio = np.abs(np.nan_to_num(pos_test_ratio, posinf=0.0, neginf=0.0))
+    pos_test_ratio = np.nan_to_num(pos_test_ratio, posinf=0.0, neginf=0.0)
     peak_ratio = np.max(pos_test_ratio)
     peak_ratio = peak_ratio if peak_ratio < 1 else 1  # used to compute y span
 
     fig, axes = plt.subplots(nrows=2, sharex='all')
-    axes[0].plot(np.abs(positivi_reg))
+    axes[0].plot(positivi_reg)
     axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_reg[-1]))
     axes[0].grid()
     axes[1].set_ylim(0, peak_ratio * 100)
