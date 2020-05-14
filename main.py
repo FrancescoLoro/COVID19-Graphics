@@ -22,21 +22,31 @@ def regions_builder():
 
 
 if __name__ == '__main__':
-    try:
-        repo = Repo('COVID-19')
-        print('Updating repository data')
-        repo.remote('origin').pull()
-    except NoSuchPathError:
-        print('Downloading repository')
-        Repo.clone_from('https://github.com/pcm-dpc/COVID-19.git', 'COVID-19')
-
     parser = argparse.ArgumentParser(prog='python3 main.py',
                                      description='A tool to show the COVID-19 infected, healed and positive people '
                                                  'relative to Italy and its regions according to official Github data')
+    try:
+        region_choice = regions_builder()
+    except FileNotFoundError:
+        print('Downloading repository')
+        Repo.clone_from('https://github.com/pcm-dpc/COVID-19.git', 'COVID-19')
+
     region_choice = regions_builder()
+
     parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), metavar='REGION',
                         help='Region to be shown. Valid options are: %(choices)s')
+    parser.add_argument('--no-update', action='store_true',
+                        help='Do not update COVID-19 git repository')
     args = parser.parse_args()
+
+    try:
+        repo = Repo('COVID-19')
+        if not args.no_update:
+            print('Updating repository data')
+            repo.remote('origin').pull()
+    except NoSuchPathError:
+        print('Downloading repository')
+        Repo.clone_from('https://github.com/pcm-dpc/COVID-19.git', 'COVID-19')
 
     if args.region is None:
         national()
