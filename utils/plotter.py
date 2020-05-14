@@ -33,15 +33,15 @@ def national():
 
     fig, axes = plt.subplots(nrows=3, sharex='all')
     axes[0].plot(positivi_ita)
-    axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_ita[-1]))
+    axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI ({}): {}".format(giorni[-1], positivi_ita[-1]))
     axes[0].grid()
     axes[1].set_ylim(0, peak_ratio * 100)
     axes[1].plot(giorni, pos_test_ratio * 100)
-    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
-                      format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
+    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI ({}): {:.2f}% ({:+.2f}%)".
+                      format(giorni[-1], pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
     axes[2].plot(dimessi_ita)
-    axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI: {}".format(dimessi_ita[-1]))
+    axes[2].set_title("ANDAMENTO NUOVI GUARITI, OGGI ({}): {}".format(giorni[-1], dimessi_ita[-1]))
     axes[2].grid()
     fig.canvas.set_window_title("Dati Nazionali")
     plt.xticks(rotation=45)
@@ -98,12 +98,12 @@ def regional(regione_selezionata, nome_regione):
 
     fig, axes = plt.subplots(nrows=2, sharex='all')
     axes[0].plot(positivi_reg)
-    axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI: {}".format(positivi_reg[-1]))
+    axes[0].set_title("ANDAMENTO NUOVI POSITIVI, OGGI ({}): {}".format(giorni_reg[-1], positivi_reg[-1]))
     axes[0].grid()
     axes[1].set_ylim(0, peak_ratio * 100)
     axes[1].plot(giorni_reg, pos_test_ratio * 100)
-    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI: {:.2f}% ({:+.2f}%)".
-                      format(pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
+    axes[1].set_title("ANDAMENTO PERCENTUALE POSITIVI/TAMPONI, OGGI ({}): {:.2f}% ({:+.2f}%)".
+                      format(giorni_reg[-1], pos_test_ratio[-1] * 100, (pos_test_ratio[-1] - pos_test_ratio[-2]) * 100))
     axes[1].grid()
     fig.canvas.set_window_title("Dati regione " + str(nome_regione))
     plt.xticks(rotation=45)
