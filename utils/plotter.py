@@ -24,7 +24,7 @@ def national():
 
     temp = []
     for i, y in enumerate(giorni):
-        temp.append(giorni[i][6:10])
+        temp.append(y[5:10])
     giorni = temp
 
     pos_test_ratio = np.divide(positivi_ita, tamponi_ita)
