@@ -30,8 +30,7 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print('Downloading repository')
         Repo.clone_from('https://github.com/pcm-dpc/COVID-19.git', 'COVID-19')
-
-    region_choice = regions_builder()
+        region_choice = regions_builder()
 
     parser.add_argument('-r', '--region', type=str, choices=region_choice.keys(), metavar='REGION',
                         help='Region to be shown. Valid options are: %(choices)s')

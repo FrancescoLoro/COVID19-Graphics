@@ -10,7 +10,7 @@ def national():
     positivi_ita = np.array(data["nuovi_positivi"])
     dimessi_ita = np.array(data["dimessi_guariti"])
     giorni = np.array(data["data"])
-    #print(dimessi_ita)
+    # print(dimessi_ita)
     temp = []
     temp1 = []
     for i in range(len(tamponi_ita) - 1):
@@ -20,7 +20,7 @@ def national():
     temp1 = np.insert(np.array(temp1), 0, dimessi_ita[0])
     tamponi_ita = temp
     dimessi_ita = temp1
-    #print(dimessi_ita)
+    # print(dimessi_ita)
 
     temp = []
     for i, y in enumerate(giorni):
@@ -66,7 +66,7 @@ def regional(regione_selezionata, nome_regione):
     positivi_reg = np.array([el[:] for el in map(tuple, positivi_reg)]).reshape(len(giorni_reg[0]), )
     giorni_reg = np.array([el[:] for el in map(tuple, giorni_reg)])
 
-    #print(positivi_reg)
+    # print(positivi_reg)
     temp = []
     for i in range(len(tamponi_reg) - 1):
         temp.append(tamponi_reg[i + 1] - tamponi_reg[i])
